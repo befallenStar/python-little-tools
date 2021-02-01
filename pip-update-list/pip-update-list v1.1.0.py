@@ -11,6 +11,8 @@ def main():
     for dist in get_installed_distributions():
         # psf update in 2020 using new resolver
         # --user for give the right
+        # since the --user-feature becomes the default
+        # this version is over
         code = call("pip install --upgrade " + dist.project_name+" --use-feature=2020-resolver --user", shell=True)
         if code != 0:
             fails.append(dist)
