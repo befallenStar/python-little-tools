@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import json
+from word import Word
 
 
 def replaceFran(str):
@@ -17,35 +18,10 @@ def main():
 
     count = [0] * len(lines)
     for line in lines:
-        words = line.strip()
-        word_json = json.loads(words)
-        count[word_json['wordRank'] - 1] += 1
-        headWord = word_json['headWord']
-        content = word_json['content']['word']['content']
-        if 'phone' in content.keys():
-            phone = content['phone']
-        elif 'ukphone' in content.keys():
-            phone = content['ukphone']
-        elif 'usphone' in content.keys():
-            phone = content['usphone']
-        else:
-            phone = ''
+        word_json = line.strip()
+        word = Word(word_json)
+        print(word)
 
-        if 'speech' in content.keys():
-            speech = content['speech']
-        elif 'ukspeech' in content.keys():
-            speech = content['ukspeech']
-        elif 'usspeech' in content.keys():
-            speech = content['usspeech']
-        else:
-            speech = ''
-
-        phone = '/' + phone + '/'
-        speech = 'https://dict.youdao.com/dictvoice?audio='+speech
-
-        print(headWord)
-        print(phone)
-        print(speech)
 
 if __name__ == '__main__':
     main()
